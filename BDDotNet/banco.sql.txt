@@ -1,0 +1,138 @@
+CREATE TABLE Produto (
+idProduto INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+idFornecedor INTEGER,
+idCategoria integer(10),
+nomeProduto VARCHAR(15) NOT NULL,
+descicaoProduto VARCHAR(45) NOT NULL,
+precoProduto DECIMAL(10) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+
+CREATE TABLE fornecedor (
+idFornecedor INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+nomeFornecedor VARCHAR(10) NOT NULL,
+cnpj INTEGER NOT NULL
+)
+CREATE TABLE categoria (
+idCategoria INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+nomeCategoria VARCHAR(10) NOT NULL
+)fornecedor
+ALTER TABLE Produto ADD FOREIGN KEY(idCategoria) REFERENCES categoria
+(idCategoria)
+ALTER TABLE Produto ADD FOREIGN KEY(idFornecedor) REFERENCES fornecedor
+(idFornecedor)
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `altera_produto`(id int,
+nomeProduto VARCHAR(15),
+idFornecedor int, idCategoria int, descicaoProduto VARCHAR(45),
+precoProduto DECIMAL(10))
+BEGIN
+UPDATE `dotnet`.`produto`
+SET
+`nomeProduto` = nomeProduto,
+`idCategoria` = idCategoria,
+`idFornecedor` = idFornecedor,fornecedor
+`descricaoProduto` = descricaoProduto,
+`precoProduto` = precoProduto
+WHERE `idProduto` = id;
+END ;;
+DELIMITER ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `altera_fornecedor`(idfor
+int, nomeFornecedor VARCHAR(15), cnpj int)
+BEGIN
+UPDATE `dotnet`.`fornecedor`
+SET
+`nomeFornecedor` = nomeFornecedor,
+`cnpj` = cnpj
+WHERE `idFornecedor` = idfor;
+END ;;
+DELIMITER ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `altera_categoria`(idcat int,
+nomeCategoria VARCHAR(15))
+BEGIN
+UPDATE `dotnet`.`categoria`
+SET
+`nomeCategoria` = nomeCategoria
+WHERE `idCategoria` = idcat;
+END ;;
+DELIMITER ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleta_produto`(idprod
+integer)
+BEGIN
+DELETE FROM `dotnet`.`produto`
+WHERE produto.idProduto = idprod;
+END ;;
+DELIMITER ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleta_fornecedor`(idfor
+integer)
+BEGIN
+DELETE FROM `dotnet`.`fornecedor`
+WHERE fornecedor.idFornecedor = idfor;
+END ;;
+DELIMITER ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleta_categoria`(idca
+integer)
+BEGIN
+DELETE FROM `dotnet`.`categoria`
+WHERE categoria.idCategoria = idca;
+END ;;
+DELIMITER ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insere_produto`(nomeProduto
+VARCHAR(15),
+descicaoProduto VARCHAR(45), precoProduto DECIMAL(10), idFornecedor INT, idCategoria int)
+BEGIN
+INSERT INTO dotnet.produto
+(`nomeProduto`,
+`descricaoProduto`,
+`precoProduto`,`idFornecedor`,`idCategoria`)
+VALUES
+(nomeProduto,
+descricaoProduto,
+precoProduto, `idFornecedor`,`idCategoria`);
+END ;;
+DELIMITER ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insere_fornecedor`(idfor
+int, nomeFornecedor VARCHAR(15), cnpj int)
+BEGIN
+INSERT INTO dotnet.produto
+(`nomeFornecedor`,
+`cnpj`)
+VALUES
+(nomeFornecedor,
+cnpj);
+END ;;
+DELIMITER ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insere_categoria`(idcat int,
+nomeCategoria VARCHAR(15))
+BEGIN
+INSERT INTO dotnet.categoria
+(`nomeCategoria`)
+VALUES
+(nomeCategoria);
+END ;;
+DELIMITER ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_produto`()
+BEGIN
+ SELECT * FROM dotnet.produto;
+END ;;
+DELIMITER ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_categoria`()
+BEGIN
+ SELECT * FROM dotnet.categoria;
+END ;;
+DELIMITER ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_fornecedor`()
+BEGIN
+ SELECT * FROM dotnet.fornecedor;
+END ;;
+DELIMITER ;
